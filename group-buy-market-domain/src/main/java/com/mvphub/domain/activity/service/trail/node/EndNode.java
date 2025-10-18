@@ -26,11 +26,12 @@ public class EndNode extends
                                       DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
 
         SkuVO skuVO = dynamicContext.getSkuVO();
+        BigDecimal deductionPrice = dynamicContext.getDeductionPrice();
         GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = dynamicContext.getGroupBuyActivityDiscountVO();
 
         return TrailBalanceEntity.builder()
                 .goodsId(skuVO.getGoodsId())
-                .deductionPrice(new BigDecimal("0.00"))
+                .deductionPrice(deductionPrice)
                 .goodsName(skuVO.getGoodsName())
                 .originalPrice(skuVO.getOriginalPrice())
                 .endTime(groupBuyActivityDiscountVO.getEndTime())
@@ -43,8 +44,7 @@ public class EndNode extends
 
     @Override
     public StrategyHandler<MarketProductEntity, DefaultActivityStrategyFactory.DynamicContext, TrailBalanceEntity> get(
-            MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext)
-            throws Exception {
+            MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) {
         return defaultStrategyhandler;
     }
 }

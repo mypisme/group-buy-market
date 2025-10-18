@@ -40,6 +40,5 @@ public class SwitchNode extends abstractGroupBuyMarketSupport<MarketProductEntit
     @Override
     protected void multiThread(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext)
             throws ExecutionException, InterruptedException, TimeoutException {
-        super.multiThread(requestParameter, dynamicContext);
     }
 }

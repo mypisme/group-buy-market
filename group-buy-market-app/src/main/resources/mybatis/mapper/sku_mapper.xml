@@ -13,7 +13,7 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
-    <select id="querySkuByGoodsId" parameterType="java.lang.String" resultType="com.mvphub.infrastructure.dao.po.Sku">
+    <select id="querySkuByGoodsId" parameterType="java.lang.String" resultMap="DataMap">
         select id,
                source,
                channel,

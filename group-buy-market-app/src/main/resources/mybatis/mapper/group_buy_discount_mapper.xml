@@ -30,7 +30,7 @@
     </select>
 
     <select id="queryGroupBuyActivityDiscountByDiscountId" parameterType="java.lang.String"
-            resultType="com.mvphub.infrastructure.dao.po.GroupBuyDiscount">
+            resultMap="DataMap">
         select id,
                discount_id,
                discount_name,
