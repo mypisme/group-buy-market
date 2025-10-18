@@ -2,6 +2,8 @@ package com.mvphub.domain.activity.service.trail.factory;
 
 import com.mvphub.domain.activity.model.entity.MarketProductEntity;
 import com.mvphub.domain.activity.model.entity.TrailBalanceEntity;
+import com.mvphub.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import com.mvphub.domain.activity.model.valobj.SkuVO;
 import com.mvphub.domain.activity.service.trail.node.RootNode;
 import com.mvphub.types.design.framework.StrategyHandler;
 import lombok.AllArgsConstructor;
@@ -24,7 +26,7 @@ public class DefaultActivityStrategyFactory {
         this.rootNode = rootNode;
     }
 
-    public StrategyHandler<MarketProductEntity, DynamicContext, TrailBalanceEntity> strategyHandler(){
+    public StrategyHandler<MarketProductEntity, DynamicContext, TrailBalanceEntity> strategyHandler() {
         return rootNode;
     }
 
@@ -33,6 +35,10 @@ public class DefaultActivityStrategyFactory {
     @NoArgsConstructor
     @Builder
     public static class DynamicContext {
+        // 拼团活动营销配置值对象
+        private GroupBuyActivityDiscountVO groupBuyActivityDiscountVO;
+        // 商品信息
+        private SkuVO skuVO;
 
     }
 }
