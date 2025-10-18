@@ -3,8 +3,6 @@ package com.mvphub.infrastructure.dao;
 import com.mvphub.infrastructure.dao.po.Sku;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
 /**
  * @author mvp
  * @description 商品Dao

@@ -1,7 +1,6 @@
 package com.mvphub.domain.activity.service.trail;
 
 import com.mvphub.domain.activity.adapter.repository.IActivityRepository;
-import com.mvphub.domain.activity.model.entity.MarketProductEntity;
 import com.mvphub.domain.activity.service.trail.factory.DefaultActivityStrategyFactory;
 import com.mvphub.types.design.framework.AbstractMultiThreadStrategyRouter;
 

@@ -5,8 +5,6 @@ import com.alibaba.fastjson2.JSON;
 import com.mvphub.domain.activity.model.entity.MarketProductEntity;
 import com.mvphub.domain.activity.model.entity.TrailBalanceEntity;
 import com.mvphub.domain.activity.service.trail.IIndexGroupBuyMarketService;
-import com.mvphub.infrastructure.dao.IGroupBuyActivityDao;
-import com.mvphub.infrastructure.dao.po.GroupBuyActivity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Slf4j
 @RunWith(SpringRunner.class)

@@ -1,7 +1,6 @@
 package com.mvphub.domain.activity.service.trail.thread;
 
 import com.mvphub.domain.activity.adapter.repository.IActivityRepository;
-import com.mvphub.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import com.mvphub.domain.activity.model.valobj.SkuVO;
 
 import java.util.concurrent.Callable;

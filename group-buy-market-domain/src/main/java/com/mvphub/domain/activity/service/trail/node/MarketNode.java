@@ -38,8 +38,7 @@ public class MarketNode extends
 
     @Override
     public StrategyHandler<MarketProductEntity, DefaultActivityStrategyFactory.DynamicContext, TrailBalanceEntity> get(
-            MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext)
-            throws Exception {
+            MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) {
         return endNode;
     }
 
