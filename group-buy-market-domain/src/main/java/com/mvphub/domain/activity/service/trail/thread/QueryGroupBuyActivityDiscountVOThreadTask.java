@@ -4,7 +4,6 @@ import com.mvphub.domain.activity.adapter.repository.IActivityRepository;
 import com.mvphub.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import com.mvphub.domain.activity.model.valobj.ScSkuActivityVO;
 
-import java.util.UUID;
 import java.util.concurrent.Callable;
 
 /**

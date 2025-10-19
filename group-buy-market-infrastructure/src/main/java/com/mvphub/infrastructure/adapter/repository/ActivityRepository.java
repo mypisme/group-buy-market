@@ -16,7 +16,6 @@ import com.mvphub.infrastructure.dao.po.Sku;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Repository
 public class ActivityRepository implements IActivityRepository {
