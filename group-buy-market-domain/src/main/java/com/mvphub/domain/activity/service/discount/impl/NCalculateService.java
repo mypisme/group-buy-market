@@ -2,7 +2,6 @@ package com.mvphub.domain.activity.service.discount.impl;
 
 import com.mvphub.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import com.mvphub.domain.activity.service.discount.AbstractDiscountCalculateService;
-import com.mvphub.types.common.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

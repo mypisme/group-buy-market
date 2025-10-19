@@ -24,7 +24,7 @@ public class QuerySkuVOThreadTask implements Callable<SkuVO> {
 
 
     @Override
-    public SkuVO call() throws Exception {
+    public SkuVO call() {
         return activityRepository.querySkuByGoodsId(goodsId);
     }
 }
