@@ -33,7 +33,7 @@ public class MarketNode extends
     private ThreadPoolExecutor threadPoolExecutor;
 
     @Resource
-    private EndNode endNode;
+    private TagNode tagNode;
 
     @Resource
     private ErrorNode errorNode;
@@ -71,7 +71,7 @@ public class MarketNode extends
         if (dynamicContext.getSkuVO() == null || dynamicContext.getGroupBuyActivityDiscountVO() == null) {
             return errorNode;
         }
-        return endNode;
+        return tagNode;
     }
 
     @Override

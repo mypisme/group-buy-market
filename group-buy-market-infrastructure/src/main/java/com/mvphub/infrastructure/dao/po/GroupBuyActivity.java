@@ -63,11 +63,11 @@ public class GroupBuyActivity {
     /**
      * 人群标签规则标识
      */
-    private Integer tagId;
+    private String tagId;
     /**
      * 人群标签规则范围（多选；1可见限制、2参与限制）
      */
-    private Integer tagScope;
+    private String tagScope;
     /**
      * 创建时间
      */

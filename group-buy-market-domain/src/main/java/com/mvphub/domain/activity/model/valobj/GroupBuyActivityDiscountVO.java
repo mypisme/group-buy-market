@@ -1,9 +1,11 @@
 package com.mvphub.domain.activity.model.valobj;
 
+import com.mvphub.types.common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
@@ -16,6 +18,15 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class GroupBuyActivityDiscountVO {
+    /**
+     * 可见标识
+     */
+    public static final String TAG_VISIBLE = "1";
+
+    /**
+     * 是否生效标识
+     */
+    public static final String TAG_ENABLE = "2";
     /**
      * 活动ID
      */
@@ -71,11 +82,43 @@ public class GroupBuyActivityDiscountVO {
     /**
      * 人群标签规则标识
      */
-    private Integer tagId;
+    private String tagId;
     /**
      * 人群标签规则范围（多选；1可见限制、2参与限制）
      */
-    private Integer tagScope;
+    private String tagScope;
+
+    public boolean isVisible() {
+        String[] split = getTagScopeList();
+        if (split == null) {
+            return TagScopeEnum.VISIBLE.isAllow();
+        }
+        return checkScope(split, TAG_VISIBLE);
+    }
+
+    public boolean isEnabled() {
+        String[] split = getTagScopeList();
+        if (split == null)
+            return TagScopeEnum.VISIBLE.isAllow();
+        // 如果有配置人群标签，默认返回不可见
+        return checkScope(split, TAG_ENABLE);
+    }
+
+    private static boolean checkScope(String[] split, String tagVisible) {
+        // 如果有配置人群标签，默认返回不可见
+        if (split.length > 0 && tagVisible.equals(split[0])) {
+            return TagScopeEnum.VISIBLE.isRefuse();
+        }
+        // 如果未配置，默认返回可见
+        return TagScopeEnum.VISIBLE.isAllow();
+    }
+
+    private String[] getTagScopeList() {
+        if (StringUtils.isBlank(this.tagScope)) {
+            return null;
+        }
+        return this.tagScope.split(Constants.SPLIT);
+    }
 
     @Data
     @AllArgsConstructor
