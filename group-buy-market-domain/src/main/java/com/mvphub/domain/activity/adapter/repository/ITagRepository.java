@@ -1,7 +1,5 @@
 package com.mvphub.domain.activity.adapter.repository;
 
-import com.mvphub.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
-import com.mvphub.domain.activity.model.valobj.SkuVO;
 import com.mvphub.domain.tag.model.entity.CrowdTagsJobEntity;
 
 /**

@@ -117,9 +117,6 @@ CREATE TABLE `group_buy_activity` (
                                       `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增',
                                       `activity_id` bigint(8) NOT NULL COMMENT '活动ID',
                                       `activity_name` varchar(128) NOT NULL COMMENT '活动名称',
-                                      `source` varchar(8) NOT NULL COMMENT '来源',
-                                      `channel` varchar(8) NOT NULL COMMENT '渠道',
-                                      `goods_id` varchar(12) NOT NULL COMMENT '商品ID',
                                       `discount_id` varchar(8) NOT NULL COMMENT '折扣ID',
                                       `group_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '拼团方式（0自动成团、1达成目标拼团）',
                                       `take_limit_count` int(4) NOT NULL DEFAULT '1' COMMENT '拼团次数限制',
@@ -139,9 +136,10 @@ CREATE TABLE `group_buy_activity` (
 LOCK TABLES `group_buy_activity` WRITE;
 /*!40000 ALTER TABLE `group_buy_activity` DISABLE KEYS */;
 
-INSERT INTO `group_buy_activity` (`id`, `activity_id`, `activity_name`, `source`, `channel`, `goods_id`, `discount_id`, `group_type`, `take_limit_count`, `target`, `valid_time`, `status`, `start_time`, `end_time`, `tag_id`, `tag_scope`, `create_time`, `update_time`)
+INSERT INTO `group_buy_activity` (`id`, `activity_id`, `activity_name`, `discount_id`, `group_type`, `take_limit_count`, `target`, `valid_time`, `status`, `start_time`, `end_time`, `tag_id`, `tag_scope`, `create_time`, `update_time`)
 VALUES
-    (1,100123,'测试活动','s01','c01','9890001','25120208',0,1,1,15,0,'2024-12-07 10:19:40','2024-12-07 10:19:40','1','1','2024-12-07 10:19:40','2024-12-22 16:04:40');
+    (1,100123,'满减活动','25120208',0,1,1,15,0,'2024-12-07 10:19:40','2024-12-07 10:19:40','1','1','2024-12-07 10:19:40','2024-12-22 16:04:40'),
+    (2,100124,'折扣活动','25120209',0,1,1,15,0,'2024-12-07 10:19:40','2024-12-07 10:19:40','1','1','2024-12-07 10:19:40','2024-12-22 16:04:40');
 
 /*!40000 ALTER TABLE `group_buy_activity` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -188,8 +186,6 @@ DROP TABLE IF EXISTS `sku`;
 
 CREATE TABLE `sku` (
                        `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-                       `source` varchar(8) NOT NULL COMMENT '渠道',
-                       `channel` varchar(8) NOT NULL COMMENT '来源',
                        `goods_id` varchar(16) NOT NULL COMMENT '商品ID',
                        `goods_name` varchar(128) NOT NULL COMMENT '商品名称',
                        `original_price` decimal(10,2) NOT NULL COMMENT '商品价格',
@@ -202,11 +198,41 @@ CREATE TABLE `sku` (
 LOCK TABLES `sku` WRITE;
 /*!40000 ALTER TABLE `sku` DISABLE KEYS */;
 
-INSERT INTO `sku` (`id`, `source`, `channel`, `goods_id`, `goods_name`, `original_price`, `create_time`, `update_time`)
+INSERT INTO `sku` (`id`, `goods_id`, `goods_name`, `original_price`, `create_time`, `update_time`)
 VALUES
-    (1,'s01','c01','9890001','《手写MyBatis：渐进式源码实践》',100.00,'2024-12-21 11:10:06','2024-12-21 11:10:06');
+    (1,'9890001','洗衣机',100.00,'2024-12-21 11:10:06','2024-12-21 11:10:06'),
+    (2,'9890002','冰箱',200.00,'2024-12-21 11:10:06','2024-12-21 11:10:06'),
+    (3,'9890003','电视',300.00,'2024-12-21 11:10:06','2024-12-21 11:10:06');
 
 /*!40000 ALTER TABLE `sku` ENABLE KEYS */;
+UNLOCK TABLES;
+
+# 活动-商品信息表 sc_sku_activity
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sc_sku_activity`;
+
+CREATE TABLE `sc_sku_activity` (
+                       `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+                       `source` varchar(8) NOT NULL COMMENT '渠道',
+                       `channel` varchar(8) NOT NULL COMMENT '来源',
+                       `goods_id` varchar(16) NOT NULL COMMENT '商品ID',
+                       `activity_id` bigint(8) NOT NULL COMMENT '活动ID',
+                       PRIMARY KEY (`id`),
+                       UNIQUE KEY `uq_goods_activity` (`goods_id`, `activity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品信息';
+
+LOCK TABLES `sc_sku_activity` WRITE;
+/*!40000 ALTER TABLE `sc_sku_activity` DISABLE KEYS */;
+
+INSERT INTO `sc_sku_activity` (`id`, `source`, `channel`, `goods_id`, `activity_id`)
+VALUES
+    (1,'s01','c01','9890001',100123),
+    (2,'s01','c01','9890002',100123),
+    (3,'s01','c01','9890003',100123),
+    (4,'s01','c01','9890003',100124);
+
+/*!40000 ALTER TABLE `sc_sku_activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

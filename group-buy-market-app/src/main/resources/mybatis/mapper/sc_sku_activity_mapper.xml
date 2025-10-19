@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvphub.infrastructure.dao.IScSkuActivityDao">
+
+    <resultMap id="DataMap" type="com.mvphub.infrastructure.dao.po.ScSkuActivity">
+        <id column="id" property="id"/>
+        <result column="source" property="source"/>
+        <result column="channel" property="channel"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="activity_id" property="activityId"/>
+    </resultMap>
+
+    <select id="querySkuByGoodsId" parameterType="java.lang.String" resultMap="DataMap">
+        select id, source, channel, goods_id, activity_id
+        from sc_sku_activity
+        where goods_id = #{goodsId}
+    </select>
+
+</mapper>

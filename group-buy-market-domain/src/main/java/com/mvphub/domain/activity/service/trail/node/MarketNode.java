@@ -36,18 +36,28 @@ public class MarketNode extends
     private EndNode endNode;
 
     @Resource
+    private ErrorNode errorNode;
+
+    @Resource
     private Map<String, IDiscountCalculateService> discountCalculateServiceMap;
 
     @Override
     public TrailBalanceEntity doApply(MarketProductEntity requestParameter,
                                       DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
-        GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount = dynamicContext.getGroupBuyActivityDiscountVO()
-                .getGroupBuyDiscount();
+        GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = dynamicContext.getGroupBuyActivityDiscountVO();
         SkuVO skuVO = dynamicContext.getSkuVO();
+        if (groupBuyActivityDiscountVO == null || skuVO == null) {
+            return router(requestParameter, dynamicContext);
+        }
+        GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount = groupBuyActivityDiscountVO
+                .getGroupBuyDiscount();
+        if (groupBuyDiscount == null) {
+            return router(requestParameter, dynamicContext);
+        }
         // 获取优惠计算服务
         IDiscountCalculateService calculateService = discountCalculateServiceMap.get(groupBuyDiscount.getMarketPlan());
         if (calculateService == null) {
-            throw new AppException(ResponseCode.EF001.getCode(), ResponseCode.ILLEGAL_PARAMETER.getInfo());
+            throw new AppException(ResponseCode.E0001.getCode(), ResponseCode.ILLEGAL_PARAMETER.getInfo());
         }
         BigDecimal deductionPrice = calculateService.calculate(
                 requestParameter.getUserId(), skuVO.getOriginalPrice(), groupBuyDiscount);
@@ -58,7 +68,9 @@ public class MarketNode extends
     @Override
     public StrategyHandler<MarketProductEntity, DefaultActivityStrategyFactory.DynamicContext, TrailBalanceEntity> get(
             MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) {
-
+        if (dynamicContext.getSkuVO() == null || dynamicContext.getGroupBuyActivityDiscountVO() == null) {
+            return errorNode;
+        }
         return endNode;
     }
 
@@ -67,7 +79,9 @@ public class MarketNode extends
                                DefaultActivityStrategyFactory.DynamicContext dynamicContext)
             throws ExecutionException, InterruptedException, TimeoutException {
         QueryGroupBuyActivityDiscountVOThreadTask activityTask = new QueryGroupBuyActivityDiscountVOThreadTask(
-                requestParameter.getSource(), requestParameter.getChannel(), activityRepository);
+                requestParameter.getSource(), requestParameter.getChannel(), requestParameter.getGoodsId(),
+                activityRepository
+        );
         FutureTask<GroupBuyActivityDiscountVO> futureActivityTask = new FutureTask<>(activityTask);
         threadPoolExecutor.execute(futureActivityTask);
 

@@ -4,9 +4,6 @@
 
     <resultMap id="DataMap" type="com.mvphub.infrastructure.dao.po.Sku">
         <id column="id" property="id"/>
-        <result column="source" property="source"/>
-        <result column="channel" property="channel"/>
-        <result column="goods_id" property="goodsId"/>
         <result column="goods_name" property="goodsName"/>
         <result column="original_price" property="originalPrice"/>
         <result column="create_time" property="createTime"/>
@@ -15,9 +12,6 @@
 
     <select id="querySkuByGoodsId" parameterType="java.lang.String" resultMap="DataMap">
         select id,
-               source,
-               channel,
-               goods_id,
                goods_name,
                original_price,
                create_time,

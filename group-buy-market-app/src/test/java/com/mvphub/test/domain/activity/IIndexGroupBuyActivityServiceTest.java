@@ -34,4 +34,17 @@ public class IIndexGroupBuyActivityServiceTest {
         log.info("返回结果:{}", JSON.toJSONString(trialBalanceEntity));
 
     }
+
+    @Test
+    public void test_indexMarketTrial_error() throws Exception {
+        MarketProductEntity marketProductEntity = new MarketProductEntity();
+        marketProductEntity.setUserId("xiaofuge");
+        marketProductEntity.setSource("s01");
+        marketProductEntity.setChannel("c01");
+        marketProductEntity.setGoodsId("9890004");
+
+        TrailBalanceEntity trialBalanceEntity = indexGroupBuyMarketService.indexMarketTrail(marketProductEntity);
+        log.info("请求参数:{}", com.alibaba.fastjson.JSON.toJSONString(marketProductEntity));
+        log.info("返回结果:{}", com.alibaba.fastjson.JSON.toJSONString(trialBalanceEntity));
+    }
 }

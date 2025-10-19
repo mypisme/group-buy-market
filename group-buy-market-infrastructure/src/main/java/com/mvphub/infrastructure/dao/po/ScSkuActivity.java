@@ -10,31 +10,33 @@ import java.util.Date;
 
 /**
  * @author mvp
+ * @description 活动-商品信息实体类
+ * @create 2025年10月19日
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Sku {
+public class ScSkuActivity {
     /**
      * 自增ID
      */
     private Long id;
     /**
-     * 商品名称
+     * 渠道
      */
-    private String goodsName;
+    private String source;
     /**
-     * 商品价格
+     * 来源
      */
-    private BigDecimal originalPrice;
+    private String channel;
     /**
-     * 创建时间
+     * 商品ID
      */
-    private Date createTime;
+    private String goodsId;
     /**
-     * 更新时间
+     * 活动ID
      */
-    private Date updateTime;
+    private Long activityId;
 }
